@@ -1,9 +1,14 @@
-/inventory
 /roles/**/files/scratchpad
 .DS_Store
 .python-version
 .idea/
 .direnv/
+.ansible_facts/
+/group_vars/vars
+/group_vars/vault
+/inventory
+hosts
+vault_*
 
 # ignore roles pulled by ansible-galaxy
 /roles/galaxy/*
