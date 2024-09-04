@@ -4,8 +4,8 @@
 .idea/
 .direnv/
 .ansible_facts/
-/group_vars/vars
-/group_vars/vault
+/group_vars/vars*
+/group_vars/vault*
 /inventory
 hosts
 vault_*

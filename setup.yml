@@ -1,6 +1,8 @@
 ---
 - name: "Set up a Matrix server"
   hosts: "{{ target if target is defined else 'matrix_servers' }}"
+  vars_files:
+    - group_vars/vars.yml
   become: true
 
   roles:
