@@ -4,16 +4,17 @@ shared_secret: {{ matrix_registration_shared_secret|to_json }}
 admin_secret: {{ matrix_registration_admin_secret|to_json }}
 riot_instance: {{ matrix_registration_riot_instance|to_json }}
 db: {{ matrix_registration_db|to_json }}
+client_redirect: "https://element.{{ matrix_domain }}"
 host: '0.0.0.0'
 port: 5000
-rate_limit: ["100 per day", "10 per minute"]
+rate_limit: ["10000 per day", "100 per minute"]
 allow_cors: false
 logging:
   disable_existing_loggers: False
   version: 1
   root:
     level: DEBUG
-    handlers: [console]
+    handlers: [console, file]
   formatters:
     brief:
       format: '%(name)s - %(levelname)s - %(message)s'
@@ -25,7 +26,18 @@ logging:
       level: INFO
       formatter: brief
       stream: ext://sys.stdout
+    file:
+      class: logging.handlers.RotatingFileHandler
+      formatter: precise
+      level: INFO
+      filename: /data/m_reg.log
+      maxBytes: 10485760 # 10MB
+      backupCount: 3
+      encoding: utf8
 # password requirements
 password:
-  min_length: 8
-base_url: {{ matrix_registration_base_url|to_json }}
+  min_length: 14
+base_url: ''
+username:
+  validation_regex: [ '[a-zA-Z0-9]' ]
+  invalidation_regex: [ '(info|admin|null|123456|mail|fuck|webmaster|root|test|guest|adm|mysql|user|administrator|oracle|ftp|pi|puppet|ansible|ec2-user|vagrant|azureuse|mod|moderator|host|postgres|synapse|support)' ]
